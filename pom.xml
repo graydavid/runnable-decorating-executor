@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>io.github.graydavid</groupId>
+    <artifactId>graydavid-style-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../graydavid-style-parent/pom.xml</relativePath>
+  </parent>
+  <groupId>io.github.graydavid</groupId>
+  <artifactId>runnable-decorating-executor</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>Contains an Executor (and related definitions) for safely decorating runnables submitting to it.</description>
+  <url>http://github.com/graydavid/${project.artifactId}</url>
+  <scm>
+    <connection>scm:git:git://github.com/graydavid/${project.artifactId}.git</connection>
+    <developerConnection>scm:git:ssh://github.com:graydavid/${project.artifactId}.git</developerConnection>
+    <url>http://github.com/graydavid/${project.artifactId}/tree/main</url>
+   </scm>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>check</id>
+            <configuration>
+              <rules>
+                <rule>
+                  <element>BUNDLE</element>
+                  <limits>
+                    <!-- Unfortunately, GuaranteedDecoratingRunnable.throwCaughtUnchecked throws in a way that jacoco doesn't realize callers will stop.
+                         So, jacoco marks callers as missing test coverage after calling this method, which never happens, but jacoco doesn't know that.
+                         Generating full coverage is impossible if we want to keep this approach, which does help with readability/organization.
+                         So, we must lower from 100% coverage to prioritize readability.  -->
+                    <limit>
+                      <counter>INSTRUCTION</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>0.98</minimum>
+                    </limit>
+                    <limit>
+                      <counter>BRANCH</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>1.00</minimum>
+                    </limit>
+                  </limits>
+                </rule>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
