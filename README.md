@@ -59,6 +59,6 @@ Executor safeDecoratingExecutor = RunnableDecoratingExecutor.from(threadExecutor
 
 Although this example is a simple adornment process, Runnable-Decorating-Executor also provides a way to define composite RunnableAdorners based on a list of RunnableAdorners (i.e. the composite design pattern) as well as fault-tolerant RunnableAdorners (which can suppress failures).
 
-##Contributions
+## Contributions
 
 Contributions are welcome! See the [graydavid-parent](https://github.com/graydavid/graydavid-parent) project for details.
